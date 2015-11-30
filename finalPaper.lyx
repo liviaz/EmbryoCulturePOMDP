@@ -1,0 +1,1462 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass IEEEtran
+\begin_preamble
+
+\usepackage[numbered,framed]{mcode}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+
+
+\usepackage{color}
+\usepackage{listings}
+
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+ 
+\lstset{language=Java,
+basicstyle=\ttfamily,
+keywordstyle=\color{javapurple}\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+numbers=left,
+numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=4,
+showspaces=false,
+showstringspaces=false,
+breaklines=true}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip smallskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Life begins as a POMDP: improving decision making in the IVF clinic
+\end_layout
+
+\begin_layout Author
+Livia Zarnescu Yanez
+\end_layout
+
+\begin_layout Abstract
+Patient outcomes after in vitro fertilization (IVF) are heavily dependent
+ on subjective treatment decisions made by physicians based on limited informati
+on.
+ Because the optimal outcome of IVF is to achieve a singleton pregnancy,
+ physicians often attempt to identify exactly one viable embryo to transfer
+ to patients.
+ However, embryo viability cannot be observed directly and must instead
+ be predicted by a series of morphological assessments.
+ In this study, the period of embryo culture between fertilization and transfer
+ was modeled as a partially observable Markov decision process (POMDP).
+ A near-optimal policy was determined for each of two reward functions which
+ represent desirable outcomes in clinical situations, and the actions resulting
+ from those policies were compared to actions physicians would take in those
+ scenarios.
+ By combining information from POMDP solutions with human decision-making
+ in the IVF clinic, physicians could more reliably choose a treatment plan
+ for each patient which reduces the risk of undesirable outcomes and maximizes
+ overall pregnancy rates.
+\end_layout
+
+\begin_layout Section*
+Introduction
+\end_layout
+
+\begin_layout Standard
+In the current clinical practice of IVF, a patient starts a treatment cycle
+ with hormones which stimulate several egg-containing follicles to grow.
+ Once the eggs are determined to be sufficiently mature, they are collected
+ and fertilized via regular IVF or intra-cytoplasmic sperm injection (ICSI),
+ depending on sperm quality.
+ The resulting embryos are then incubated overnight and a fertilization
+ check is performed the following morning to assess whether fertilization
+ actually occured.
+ Typically, the majority of eggs collected are able to fertilize successfully
+ so the clinicians are then tasked with choosing which and how many embryos
+ to transfer back to the patient in hopes of achieving a successful pregnancy.
+ The selection of embryos for transfer is a difficult problem because the
+ desired outcome is not just for the patient to become pregnant, but also
+ to have a 
+\shape italic
+singleton
+\shape default
+ pregnancy.
+ Multiple gestation pregnancies are associated with significantly higher
+ medical costs, risks of complications, and neonatal mortality, so transferring
+ too many viable embryos will also lead to a suboptimal outcome.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename IVF_all.pdf
+	lyxscale 50
+	width 100text%
+	clip
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Typical clinical workflow in IVF.
+ After fertilization, clinicians must decide for how long to culture embryos,
+ and then which one(s) to transfer back to the patient to maximize her chances
+ of a singleton pregnancy.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Selecting embryos for transfer requires an assessment of embryo quality
+ to predict viability.
+ The current gold standard to determine quality is to culture embryos for
+ several days after fertilization (typically to the day 3 cleavage stage,
+ or to the day 5-6 blastocyst stage), and simply designate those which do
+ not arrest as viable.
+ Although this method can eliminate many embryos which are not viable from
+ consideration for transfer, is also causes significant stress to all embryos
+ as extended time in culture can negatively affect patterns of gene expression
+ and epigenetic reprogramming.
+ Therefore, it is important to balance the information gathered from extra
+ time in culture with the stress caused by the culture process itself.
+\end_layout
+
+\begin_layout Standard
+In addition to viability determination by attrition, clinicians can also
+ gather information about viability based on morphological features such
+ as cell number, symmetry, and degree of fragmentation.
+ These features are highly subjective and only moderately correlated with
+ viability, but are noninvasive and easy to perform.
+ Recent advances in research have also resulted in new, more accurate assessment
+s of viability such as preimplantation genetic diagnosis and time lapse
+ imaging.
+ These tests can improve prediction over a morphological assessment alone,
+ but have varying degrees of invasiveness and cost significantly more.
+\end_layout
+
+\begin_layout Standard
+Therefore, between the time of fertilization and the time of transfer to
+ the patient, clinicians must make a series of decisions regarding which
+ assessments of viability to conduct, how long to culture, and which embryos
+ to transfer in order to achieve a singleton pregnancy.
+ It is possible that by modeling this process as a POMDP, we can come up
+ with an optimal decision-making policy to maximize success rates.
+\end_layout
+
+\begin_layout Section*
+Methods
+\end_layout
+
+\begin_layout Paragraph*
+Approach
+\end_layout
+
+\begin_layout Standard
+The process of embryo development from the time of fertilization check (day
+ 1) to the last possible culture day (day 5) was modeled as a partially
+ observable Markov decision process (POMDP), which includes a set of states
+ 
+\begin_inset Formula $S$
+\end_inset
+
+, actions 
+\begin_inset Formula $A$
+\end_inset
+
+, and observations 
+\begin_inset Formula $\Theta$
+\end_inset
+
+ as well as a transition matrix 
+\begin_inset Formula $T\left(s'\vert s,a\right)$
+\end_inset
+
+, an observation function 
+\begin_inset Formula $O\left(o\vert s,a\right)$
+\end_inset
+
+ and a reward function 
+\begin_inset Formula $R\left(s,a\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+POMDP=\left\{ S,A,\Theta,T,O,R\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+Representation of Embryo Culture
+\end_layout
+
+\begin_layout Standard
+The POMDP is represented by the EmbryoCulture type and parameterized by
+ the number 
+\begin_inset Formula $n$
+\end_inset
+
+ of embryos which successfully fertilize.
+ The status of the embryos in culture is tracked over 5 days, which is typically
+ the longest possible time embryologists can culture embryos before they
+ must decide which to transfer to the patient.
+ Each time step in the model 
+\begin_inset Formula $\left(\Delta t\right)$
+\end_inset
+
+ represents 1 day in culture, because embryo morphology is generally assessed
+ only once per day by clinical staff.
+\end_layout
+
+\begin_layout Paragraph*
+State Space
+\end_layout
+
+\begin_layout Standard
+The current state of the embryo culture consists of the following variables:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{array}{l}
+EmbryoState=\left\{ n,v,m_{v},m_{nv},d\right\} \\
+m_{v}=\left[\#m_{v,poor},\#m_{v,fair},\#m_{v,good}\right]\\
+m_{nv}=\left[\#m_{nv,poor},\#m_{nv,fair},\#m_{nv,good}\right]
+\end{array}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the EmbryoState structure, n is the number of embryos in culture, 
+\begin_inset Formula $v$
+\end_inset
+
+ is the number of those which are viable, 
+\begin_inset Formula $m_{v}$
+\end_inset
+
+ is the 3x1 morphology vector containing the number of viable embryos with
+ poor/fair/good morphology, 
+\begin_inset Formula $m_{nv}$
+\end_inset
+
+ is the 3x1 morphology vector containing the number of nonviable embryos
+ with poor/fair/good morphology, and 
+\begin_inset Formula $d$
+\end_inset
+
+ is the day in culture.
+ Because the embryos can be cultured for up to 5 days, 
+\begin_inset Formula $d$
+\end_inset
+
+ must be an integer from 1 to 6 (
+\begin_inset Formula $day=6$
+\end_inset
+
+ represents a 
+\begin_inset Quotes eld
+\end_inset
+
+done
+\begin_inset Quotes erd
+\end_inset
+
+ state where the embryos have already been transferred or discarded).
+ The size of the state space is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\vert S\vert=6n\sum_{i=0}^{n}\frac{(i+1)(i+2)(n-i+1)(n-i+2)}{4}
+\]
+
+\end_inset
+
+There are 6 possible values of 
+\begin_inset Formula $d$
+\end_inset
+
+, 
+\begin_inset Formula $n$
+\end_inset
+
+ possible values of 
+\begin_inset Formula $v$
+\end_inset
+
+, and the term inside the sum represents the number of possible arrangements
+ of 
+\begin_inset Formula $m_{v}$
+\end_inset
+
+ and 
+\begin_inset Formula $m_{nv}$
+\end_inset
+
+ for 
+\begin_inset Formula $v$
+\end_inset
+
+ viable and 
+\begin_inset Formula $(n-v)$
+\end_inset
+
+ nonviable embryos for 
+\begin_inset Formula $v=i.$
+\end_inset
+
+ An alternate representation of the state space was initially explored containin
+g the viability status and morphology of each individual embryo in culture.
+ However, this resulted in a state space of size 
+\begin_inset Formula $50^{n}$
+\end_inset
+
+, which was significantly more difficult to deal with computationally and
+ was abandoned in favor of the representation described here.
+\end_layout
+
+\begin_layout Paragraph*
+Action Space
+\end_layout
+
+\begin_layout Standard
+The actions available to the embryologist during embryo culture are represented
+ by the following variables:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+EmbryoAction=\left\{ a,tr\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{array}{cc}
+a\in\left\{ CC,B,TR,D\right\}  & tr\in1:n\end{array}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the EmbryoAction structure, 
+\begin_inset Formula $a$
+\end_inset
+
+ represents the action taken by the embryologist, where CC = 
+\begin_inset Quotes eld
+\end_inset
+
+continue culture,
+\begin_inset Quotes erd
+\end_inset
+
+ B = 
+\begin_inset Quotes eld
+\end_inset
+
+biopsy,
+\begin_inset Quotes erd
+\end_inset
+
+ TR = 
+\begin_inset Quotes eld
+\end_inset
+
+transfer to patient,
+\begin_inset Quotes erd
+\end_inset
+
+ and D = 
+\begin_inset Quotes eld
+\end_inset
+
+discard all.
+\begin_inset Quotes erd
+\end_inset
+
+ If action TR is chosen, then the 
+\begin_inset Formula $tr$
+\end_inset
+
+ variable represents the number of embryos to transfer.
+ These are chosen based on morphology, regardless of whether they are viable
+ or nonviable, because the embryologist can only observe morphological informati
+on and not viability directly.
+ If there are many embryos with equal morphology, then a random subset of
+ size 
+\begin_inset Formula $tr$
+\end_inset
+
+ is chosen from among them.
+ The size of the action space for an EmbryoCulture POMDP with 
+\begin_inset Formula $n$
+\end_inset
+
+ embryos is
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\vert A\vert=3+n
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+Observation Space
+\end_layout
+
+\begin_layout Standard
+The variables observed by the embryologist are the following:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+EmbryoObservation=\left\{ n,m,d\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the EmbryoObservation structure, 
+\begin_inset Formula $n$
+\end_inset
+
+ represents the number of embryos in culture, 
+\begin_inset Formula $m$
+\end_inset
+
+ represents the 3x1 morphology vector of all embryos in culture (because
+ the embryologist does not know which are viable and which are nonviable),
+ and 
+\begin_inset Formula $d$
+\end_inset
+
+ represents the day in culture.
+ The observation depends on the state as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{array}{l}
+observation.n=state.n\\
+observation.m=state.m_{v}+state.m_{nv}\\
+observation.d=state.d
+\end{array}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The size of the observation space is 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\vert O\vert=6\frac{(n+1)(n+2)}{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There are 6 possible values of 
+\begin_inset Formula $d$
+\end_inset
+
+, and the fraction represents the number of possible morphology vectors
+ of 
+\begin_inset Formula $n$
+\end_inset
+
+ total embryos.
+\end_layout
+
+\begin_layout Paragraph*
+Transition Function
+\end_layout
+
+\begin_layout Standard
+Of the 
+\begin_inset Formula $n$
+\end_inset
+
+ total embryos which we start with in culture, typically only a number 
+\begin_inset Formula $v$
+\end_inset
+
+ of these will be viable, and this number may decrease over time.
+ Although a particular embryo may start out as viable at day 1, on each
+ subsequent day it may experience a failure in chromosome segregation or
+ some other event which could render it nonviable.
+ Once an embryo becomes nonviable, it will stay that way forever as chromosomal
+ abnormalities hardly ever revert to normal.
+ Therefore, we can represent the viability of a single embryo 
+\begin_inset Formula $e$
+\end_inset
+
+ over time as:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{array}{l}
+e\in\left\{ viable,nonviable\right\} \\
+p\left(e(t+1)=viable\vert e(t)=viable\right)=p_{v}\\
+p\left(e(t+1)=viable\vert e(t)=nonviable\right)=0
+\end{array}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The value of 
+\begin_inset Formula $p_{v}$
+\end_inset
+
+ used in this project was 0.9 based on findings in the literature that only
+ around 50-60% of fertilized embryos at day 1 can successfully develop to
+ day 5.
+ If we have a group of 
+\begin_inset Formula $v$
+\end_inset
+
+ viable embryos, then the number of viable embryos at the next day in culture
+ can be represented by a sum of Bernoulli random variables each with parameter
+ 
+\begin_inset Formula $p_{v}$
+\end_inset
+
+, which is a random variable with the Binomial distribution and parameters
+ 
+\begin_inset Formula $v$
+\end_inset
+
+ and 
+\begin_inset Formula $p_{v}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+p\left(v(t+1)\right)\sim Binomial\left(v(t),p_{v}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+All of the 
+\begin_inset Formula $n$
+\end_inset
+
+ embryos in culture also have a morphological parameter associated with
+ them which is visible to the embryologist.
+ Although morphology is generally a poor predictor of embryo viability,
+ viable embryos have been shown to have slightly better morphological scores
+ than nonviable embryos.
+ The morphology of embryo 
+\begin_inset Formula $e$
+\end_inset
+
+ in culture at day 1 is therefore initialized as follows (where 
+\begin_inset Formula $e_{v}$
+\end_inset
+
+ represents the case of a viable embryo and 
+\begin_inset Formula $e_{nv}$
+\end_inset
+
+ represents a nonviable embryo):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+m(e)\in\left\{ poor,fair,good\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+m\left(e\left(t=1\right)\right)\sim\begin{cases}
+Binomial(2,p_{n,v}) & e_{v}\\
+Binomial(2,p_{n,nv}) & e_{nv}
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To reflect morphology distributions found in published studies, a value
+ of 0.8 was used for 
+\begin_inset Formula $p_{n,nv}$
+\end_inset
+
+ and a value of 0.9 was used for 
+\begin_inset Formula $p_{n.v}$
+\end_inset
+
+ so that viable embryos would have slightly better starting morphological
+ scores than nonviable embryos on average.
+ At each time step after fertilization, an embryo may retain its morphology,
+ or it may experience a reduction either from 
+\begin_inset Formula $good\to fair$
+\end_inset
+
+ or 
+\begin_inset Formula $fair\to poor$
+\end_inset
+
+ (but not from 
+\begin_inset Formula $good\to poor$
+\end_inset
+
+).
+ Although nonviable embryos may continue to develop normally and retain
+ their morphological status for several days after fertilization, they do
+ have a slightly higher change of experiencing a reduction in morphology
+ compared to viable embryos.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+p\left(m(e(t+1))=m(e(t))\right)=\begin{cases}
+p_{n,v} & e_{v}\\
+p_{n.nv} & e_{nv}
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore, at each time step, each embryo will retain its morphology with
+ a certain probability based on whether it is viable or not.
+ Otherwise, its morphology will be lowered by one level.
+ To calculate the transition probability 
+\begin_inset Formula $p$
+\end_inset
+
+ from EmbryoState 
+\begin_inset Formula $s_{t}\to s_{t+1}$
+\end_inset
+
+, the following procedure was used:
+\end_layout
+
+\begin_layout Enumerate
+If 
+\begin_inset Formula $s_{t}.v<s_{t+1}.v$
+\end_inset
+
+, then some 
+\begin_inset Formula $x=(s_{t}.v-s_{t+1}.v)$
+\end_inset
+
+ viable embryos must have become nonviable from 
+\begin_inset Formula $t\to t+1$
+\end_inset
+
+.
+ Remove the 
+\begin_inset Formula $x$
+\end_inset
+
+ embryos with the poorest morphology values from 
+\begin_inset Formula $s_{t}.m_{v}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Add 
+\begin_inset Formula $x$
+\end_inset
+
+ embryos with those same morphology values to 
+\begin_inset Formula $s_{t+1}.m_{nv}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Calculate probability that 
+\begin_inset Formula $s_{t}.m_{v}$
+\end_inset
+
+ transitioned into 
+\begin_inset Formula $s_{t+1}.m_{v}$
+\end_inset
+
+.
+ Start with embryos with lowest morphology in 
+\begin_inset Formula $s_{t+1}.m_{v}$
+\end_inset
+
+ and match those to embryos with lowest morphology in 
+\begin_inset Formula $s_{t}.m_{v}$
+\end_inset
+
+.
+ For each embryo, multiply 
+\begin_inset Formula $p$
+\end_inset
+
+ by 
+\begin_inset Formula $p_{n,v}$
+\end_inset
+
+ or 
+\begin_inset Formula $\left(1-p_{n,v}\right)$
+\end_inset
+
+ based on whether that embryo maintained its morphology or went down a level.
+\end_layout
+
+\begin_layout Enumerate
+Repeat step 3 but for 
+\begin_inset Formula $s_{t}.m_{nv}\to s_{t+1}.m_{nv}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Multiply 
+\begin_inset Formula $p$
+\end_inset
+
+ by 
+\begin_inset Formula $p_{v}^{v-x}\left(1-p_{v}\right)^{x}$
+\end_inset
+
+ since 
+\begin_inset Formula $x$
+\end_inset
+
+ embryos became nonviable and 
+\begin_inset Formula $v-x$
+\end_inset
+
+ remained viable.
+\end_layout
+
+\begin_layout Paragraph*
+Reward Function
+\end_layout
+
+\begin_layout Standard
+The reward function was designed to encourage the transfer of a single viable
+ embryo to the patient.
+ A high positive reward was provided for transferring exactly one viable
+ embryo (and any number of nonviable embryos) to the patient.
+ A smaller reward was provided for transferring two viable embryos, and
+ no reward (or a negative reward) was provided for transferring 3 or more
+ viable embryos.
+ These rewards reflect the strong preference that most patients have towards
+ becoming pregnant vs not, but also the preference to just have one baby
+ rather than twins or more.
+ A strong negative reward was provided for transferring only nonviable embryos,
+ as this would represent the patient not becoming pregnant, or potentially
+ experiencing a miscarriage.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename rewards.pdf
+	lyxscale 50
+	width 100col%
+	clip
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Example reward function shape depending on which action is taken.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If it is likely that there are no viable embryos, the embryologist also
+ has an option to discard all the embryos and avoid wasting the patient's
+ time with a transfer that fails to result in a pregnancy.
+ There is a small negative reward for discarding all embryos if none are
+ viable, and a large negative reward for discarding all embryos if one or
+ more is viable.
+ This setup incentivizes discarding all embryos if none are viable, but
+ transferring at least one embryo if one or more are viable.
+ 
+\end_layout
+
+\begin_layout Standard
+Finally, there is a small negative reward for choosing to do nothing (continue
+ culture), but by the 5th time step, the embryos must be either transferred
+ or discarded because culture cannot continue any further.
+ Once a transfer or discard (or biopsy) action has been performed, the embryo
+ culture is put in a terminal state (regardless of which day the transfer
+ or discard was performed) and no further rewards can be obtained.
+\end_layout
+
+\begin_layout Subsection*
+Solution Methods
+\end_layout
+
+\begin_layout Standard
+The embryo culture scenario was represented in Julia using the POMDPs package.
+ Solutions were obtained using the SARSOP package for scenarios with up
+ to 3 embryos, and a discount factor of 1 was used to apply equal importance
+ to rewards at all time steps.
+ The following reward functions were tried to reflect different clinically
+ desirable outcomes:
+\end_layout
+
+\begin_layout Paragraph*
+R1 
+\end_layout
+
+\begin_layout Standard
+Prioritize transfer of single viable embryo, strongly discourage transfer
+ of no viable embryos.
+ For number of viable embryos transferred 
+\begin_inset Formula $v=\left[0,1,2,3+\right]$
+\end_inset
+
+, the reward given is 
+\begin_inset Formula $R=\left[-80,80,0,0\right]$
+\end_inset
+
+.
+ This represents an ideal reward scenario that many IVF clinics would like
+ to follow (avoid twins or higher gestation pregnancies due to medical risks).
+\end_layout
+
+\begin_layout Paragraph*
+R2 
+\end_layout
+
+\begin_layout Standard
+Prioritize pregnancy with more tolerance to failed cycle (transfer of no
+ viable embryos).
+ For number of viable embryos transferred 
+\begin_inset Formula $v=\left[0,1,2,3+\right]$
+\end_inset
+
+, the reward given is 
+\begin_inset Formula $R=\left[-40,40,20,0\right]$
+\end_inset
+
+.
+ This represents the reward scenario typically used in IVF clinics (where
+ many patients just want to get pregnant rather than not due to the time
+ and money they are investing).
+\end_layout
+
+\begin_layout Section*
+Results
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+average reward
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+95% CI (lower bound,upper bound)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+R1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-13.31
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(-15.6, -11.0)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+R2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-13.24
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(-16.1,-10.3)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Average rewards from policies for R1 and R2 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using the policies obtained from running the SARSOP algorithm on the reward
+ profiles mentioned above, 160 simulations were performed.
+ Outcome information was recorded regarding the reward obtained, the day
+ the transfer (or discard) was performed, and the number of embryos transferred
+ .
+ The simulations sampled a wide range of starting states by varying the
+ number of viable embryos in culture from 0 to 3, and by randomly generating
+ the starting morphology distributions of the viable and nonviable embryos.
+ In some scenarios, nonviable embryos had the same starting morphology as
+ the viable embryos, and in other scenarios they had on average poorer starting
+ morphology.
+ Average rewards over 500 simulations and 5 time steps are displayed in
+ Table 1 and were found to be approximately the same for both policies.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename combined_policy.pdf
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Average transfer policies and outcomes derived from two different reward
+ profiles: R1 = [-80,80,0,0] and R2 = [-40,40,20,0] for transferring 
+\begin_inset Formula $v=\left[0,1,2,3+\right]$
+\end_inset
+
+ viable embryos.
+ Key: D,V = at least one viable embryo was discarded (patient could have
+ become pregnant if better choice was made).
+ D,NV = all embryos were discarded but none were viable (best possible outcome
+ if no viable embryos present in culture).
+ TR,0 = Embryos were transferred to patient but none were viable (no pregnancy
+ resulted).
+ TR,1 = Exactly one viable embryo (and possibly other nonviable embryos)
+ was transferred to patient (singleton pregnancy).
+ TR,2+ = At least 2 viable embryos were transferred to patient (multiple
+ gestation pregnancy).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The average number of embryos transferred over all simulations is shown
+ in the left panel of Figure 3, split by the starting number of viable embryos
+ in the simulation.
+ In the first reward scenario (R1 = [-80,80,0,0]), the number of embryos
+ transferred increases as the number of viable embryos in culture increases.
+ However, the trend appears to level off when there are 3 viable embryos
+ present in culture, as this scenario penalizes the transfer of too many
+ viable embryos.
+ For the second reward scenario (R2 = [-40,40,20,0]), the correlation between
+ the number of viable embryos in culture and the number of embryos transferred
+ is much stronger.
+ This policy makes sense because there are still rewards to be had even
+ when 2 viable embryos are transferred, so the policy has no reason to avoid
+ transferring too many viable embryos.
+\end_layout
+
+\begin_layout Standard
+The outcomes of the two policies in the left panel of Figure 3 are shown
+ in the right panel of the same figure.
+ As expected, the policy derived from the second reward function R2 results
+ in a much higher percentage of cases where 2 or more viable embryos are
+ transferred to the patient (and thus over double the rate of multiple gestation
+ pregnancies compared to the policy derived from R1).
+ However, the R2 policy also results in many fewer cases of failed transfers
+ (transfers with no viable embryos) compared to the R1 policy.
+ Although the singleton pregnancy rate resulting from R1 is higher, the
+ overall pregnancy rate from R2 is higher.
+ It is clearly difficult to optimize for only singleton pregnancy outcomes
+ in IVF, likely due to the poor predictive value of choosing embryos based
+ on morphology alone.
+ 
+\end_layout
+
+\begin_layout Standard
+The relationship between observed morphology and type of discard/transfer
+ action taken was also explored.
+ Although the optimal action depends on the belief state and not directly
+ on the observation (some observations could lead to more than one action
+ depending on belief state), there was a clear correlation between morphology
+ distribution and number of embryos transferred.
+ 
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Quotes eld
+\end_inset
+
+D
+\begin_inset Quotes erd
+\end_inset
+
+ action (discard all) was generally chosen when there were no observed embryos
+ with good morphology.
+ Because nonviable embryos have a much higher chance of experiencing a reduction
+ in morphology from one day to the next, a lack of good morphology embryos
+ likely indicates a lack of viable embryos.
+ The 
+\begin_inset Quotes eld
+\end_inset
+
+TR2
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+TR3
+\begin_inset Quotes erd
+\end_inset
+
+ actions (transfer top 2 or 3 embryos according to morphology, respectively)
+ were chosen when there were embryos with both good and poor morphology
+ present.
+ It is likely that this action was chosen because the good morphology embryos
+ were most likely to be viable, and transferring additional embryos of lower
+ quality could compensate in the event that the good morphology embryos
+ were actually not viable.
+ The 
+\begin_inset Quotes eld
+\end_inset
+
+TR1
+\begin_inset Quotes erd
+\end_inset
+
+ action was generally chosen when there were only fair and good quality
+ embryos observed.
+ Because in this scenario it is likely that all observed embryos are viable,
+ only one embryo is chosen for transfer.
+\end_layout
+
+\begin_layout Standard
+The policy reflected in Figure 4 matches up fairly well with physician actions
+ in the IVF clinic; although generally physicians strive for single embryo
+ transfer, many patients have only poor or fair morphology embryos available
+ and it is difficult to choose a single viable embryo based on morphology
+ alone.
+ In these cases, physicians may choose 2 or more embryos for transfer to
+ the patient, which is reflected in the policy derived here.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename morphology_policy.pdf
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The action chosen by the policy depends heavily on the observed morphology
+ distribution at that time step.
+ In general, only one embryo is transferred when there are mostly good morpholog
+y embryos observed, and more are transferred when there are poor and fair
+ morphology embryos present as well.
+ If there are no good morphology embryos present, then usually they are
+ all discarded.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Discussion
+\end_layout
+
+\begin_layout Standard
+The modeling of embryo culture after IVF as a POMDP in this paper represents
+ a first attempt at reproducing and optimizing the decision-making process
+ physicians must repeat every day in order to maximize benefits to patients.
+ The policy derived from application of the SARSOP algorithm to a POMDP
+ with 3 embryos appeared to match reasonably well with the policy currently
+ practiced in the IVF clinic.
+ When a patient has embryos with mostly good morphology, physicians feel
+ comfortable conducting single embryo transfer because it is likely they
+ are transferring a viable embryo.
+ When a patient has embryos with mixed or poor morphology, physicians often
+ transfer more in the hopes that at least one will be viable (and take the
+ risk that the patient will end up with twins or triplets).
+ Rarely, physicians discard all embryos in culture if they have mostly poor
+ morphology to avoid wasting the patient's time in a failed transfer.
+ 
+\end_layout
+
+\begin_layout Standard
+By modeling the process of embryo culture as a POMDP, it could become possible
+ to vary the reward function according to desired clincal outcomes (or a
+ specific patient's wishes), or modify the transition function according
+ to statistics observed in the literature, and re-calculate a near-optimal
+ policy.
+ Physicians could then compare their intended actions to those recommended
+ by the POMDP policy, and possibly receive help in making decisions if they
+ are unsure how to proceed.
+ Still, the policy calculated by the solution algorithm is highly dependent
+ on the specific reward function chosen, which is based on subjective human
+ assessments about the value of various clinical outcomes.
+ For POMDPs to become practical for clinical use, the 
+\begin_inset Quotes eld
+\end_inset
+
+rewards
+\begin_inset Quotes erd
+\end_inset
+
+ given for clinical outcomes will have to be very carefully tuned, and physician
+s will have to figure out how to balance the actions recommended by the
+ calculated to policy with their own intuition.
+\end_layout
+
+\begin_layout Standard
+There are also a few limintations specific to the POMDP developed in this
+ paper, the first of which is that only a simplified version of the embryo
+ culture was represented.
+ In reality, there are more types of morphological grades than the good/fair/poo
+r used here, which would add significantly to the state space and further
+ complicate the transition model.
+ There are also several information-gathering actions which the physician
+ can take, all of which have different levels of reliability.
+ These include (but are not limited to) : gathering time lapse parameters
+ which can give a moderately accurate prediction of viability, and performing
+ a biopsy (preimplantation genetic screening, or PGS) which can yield highly
+ accurate information about each embryo's chromosomal status.
+ 
+\end_layout
+
+\begin_layout Standard
+The computation time can also easily become an issue when modeling typical
+ clinical scenarios.
+ In the embryo culture POMDP, it took around 5 minutes to write out a pomdpx
+ file and run the SARSOP agorithm for 3 embryos in culture.
+ Although the state space was ultimately reduced to polynomial in size by
+ carefully choosing the problem representation, it still took over 1 hour
+ to find a solution for 4 embryos in culture, and over 12 hours for 5 embryos
+ in culture.
+ Because many patients have 10 or more embryos, some more effort will have
+ to be directed toward fast, practical methods for representing and solving
+ the POMDP of embryos in culture.
+\end_layout
+
+\end_body
+\end_document

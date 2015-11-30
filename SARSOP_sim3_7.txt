@@ -1,0 +1,559 @@
+CC cost: 1 
+nonviable and viable starting morphology DIFF (.5,.9)NumViable: 0
+Starting state: EmbryoState(3,0,[0,0,0],[1,1,1],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,2,0],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,2,0],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,1,0],4)
+Time step 4
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,1,0],5)
+Time step 5
+Taking action: EmbryoAction("TR",2), got reward: -40
+Saw observation: EmbryoObservation(3,[2,1,0],6)
+Total reward: -44.0
+Starting state: EmbryoState(3,0,[0,0,0],[1,2,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,2,0],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,1,0],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[3,0,0],4)
+Time step 4
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[3,0,0],5)
+Time step 5
+Taking action: EmbryoAction("D",0), got reward: 0
+Saw observation: EmbryoObservation(3,[3,0,0],6)
+Total reward: -4.0
+Starting state: EmbryoState(3,0,[0,0,0],[1,2,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,1,0],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[3,0,0],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[3,0,0],4)
+Time step 4
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[3,0,0],5)
+Time step 5
+Taking action: EmbryoAction("D",0), got reward: 0
+Saw observation: EmbryoObservation(3,[3,0,0],6)
+Total reward: -4.0
+Starting state: EmbryoState(3,0,[0,0,0],[0,2,1],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,1,0],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[3,0,0],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[3,0,0],4)
+Time step 4
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[3,0,0],5)
+Time step 5
+Taking action: EmbryoAction("D",0), got reward: 0
+Saw observation: EmbryoObservation(3,[3,0,0],6)
+Total reward: -4.0
+Starting state: EmbryoState(3,0,[0,0,0],[2,1,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[3,0,0],2)
+Time step 2
+Taking action: EmbryoAction("TR",1), got reward: -40
+Saw observation: EmbryoObservation(3,[3,0,0],6)
+Total reward: -41.0
+Starting state: EmbryoState(3,0,[0,0,0],[0,2,1],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],3)
+Time step 3
+Taking action: EmbryoAction("TR",2), got reward: -40
+Saw observation: EmbryoObservation(3,[1,1,1],6)
+Total reward: -42.0
+Starting state: EmbryoState(3,0,[0,0,0],[0,2,1],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,1,0],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,1,0],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[3,0,0],4)
+Time step 4
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[3,0,0],5)
+Time step 5
+Taking action: EmbryoAction("D",0), got reward: 0
+Saw observation: EmbryoObservation(3,[3,0,0],6)
+Total reward: -4.0
+Starting state: EmbryoState(3,0,[0,0,0],[1,1,1],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],3)
+Time step 3
+Taking action: EmbryoAction("TR",2), got reward: -40
+Saw observation: EmbryoObservation(3,[1,1,1],6)
+Total reward: -42.0
+Starting state: EmbryoState(3,0,[0,0,0],[1,0,2],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,1,0],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,1,0],4)
+Time step 4
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[3,0,0],5)
+Time step 5
+Taking action: EmbryoAction("D",0), got reward: 0
+Saw observation: EmbryoObservation(3,[3,0,0],6)
+Total reward: -4.0
+Starting state: EmbryoState(3,0,[0,0,0],[2,1,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,1,0],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[3,0,0],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[3,0,0],4)
+Time step 4
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[3,0,0],5)
+Time step 5
+Taking action: EmbryoAction("D",0), got reward: 0
+Saw observation: EmbryoObservation(3,[3,0,0],6)
+Total reward: -4.0
+NumViable: 1
+Starting state: EmbryoState(3,1,[0,0,1],[0,0,2],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,2,1],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],3)
+Time step 3
+Taking action: EmbryoAction("TR",2), got reward: 40
+Saw observation: EmbryoObservation(3,[1,1,1],6)
+Total reward: 38.0
+Starting state: EmbryoState(3,1,[0,1,0],[0,1,1],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,2,0],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,1,0],4)
+Time step 4
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,1,0],5)
+Time step 5
+Taking action: EmbryoAction("TR",2), got reward: 40
+Saw observation: EmbryoObservation(3,[2,1,0],6)
+Total reward: 36.0
+Starting state: EmbryoState(3,1,[0,0,1],[1,1,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,0,1],2)
+Time step 2
+Taking action: EmbryoAction("TR",3), got reward: 40
+Saw observation: EmbryoObservation(3,[2,0,1],6)
+Total reward: 39.0
+Starting state: EmbryoState(3,1,[0,0,1],[1,0,1],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],3)
+Time step 3
+Taking action: EmbryoAction("TR",2), got reward: 40
+Saw observation: EmbryoObservation(3,[1,1,1],6)
+Total reward: 38.0
+Starting state: EmbryoState(3,1,[0,0,1],[0,1,1],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,1,2],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,2,1],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],4)
+Time step 4
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,1,0],5)
+Time step 5
+Taking action: EmbryoAction("D",0), got reward: -40
+Saw observation: EmbryoObservation(3,[2,1,0],6)
+Total reward: -44.0
+Starting state: EmbryoState(3,1,[0,1,0],[0,1,1],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],3)
+Time step 3
+Taking action: EmbryoAction("TR",2), got reward: 40
+Saw observation: EmbryoObservation(3,[1,1,1],6)
+Total reward: 38.0
+Starting state: EmbryoState(3,1,[0,0,1],[1,1,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,0,1],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,0,1],4)
+Time step 4
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,0,1],5)
+Time step 5
+Taking action: EmbryoAction("TR",2), got reward: 40
+Saw observation: EmbryoObservation(3,[2,0,1],6)
+Total reward: 36.0
+Starting state: EmbryoState(3,1,[0,0,1],[0,1,1],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,1,2],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],4)
+Time step 4
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,0,1],5)
+Time step 5
+Taking action: EmbryoAction("TR",2), got reward: 40
+Saw observation: EmbryoObservation(3,[2,0,1],6)
+Total reward: 36.0
+Starting state: EmbryoState(3,1,[0,0,1],[1,1,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,2,0],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,2,0],4)
+Time step 4
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,1,0],5)
+Time step 5
+Taking action: EmbryoAction("TR",2), got reward: -40
+Saw observation: EmbryoObservation(3,[2,1,0],6)
+Total reward: -44.0
+Starting state: EmbryoState(3,1,[0,0,1],[0,1,1],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,2,1],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],3)
+Time step 3
+Taking action: EmbryoAction("TR",2), got reward: 40
+Saw observation: EmbryoObservation(3,[1,1,1],6)
+Total reward: 38.0
+NumViable: 2
+Starting state: EmbryoState(3,2,[0,0,2],[0,0,1],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,1,2],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,0,2],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],4)
+Time step 4
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],5)
+Time step 5
+Taking action: EmbryoAction("TR",3), got reward: 40
+Saw observation: EmbryoObservation(3,[1,1,1],6)
+Total reward: 36.0
+Starting state: EmbryoState(3,2,[0,1,1],[0,1,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,3,0],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,2,0],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,2,0],4)
+Time step 4
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,2,0],5)
+Time step 5
+Taking action: EmbryoAction("TR",1), got reward: 40
+Saw observation: EmbryoObservation(3,[1,2,0],6)
+Total reward: 36.0
+Starting state: EmbryoState(3,2,[0,1,1],[0,0,1],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,2,1],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,2,1],3)
+Time step 3
+Taking action: EmbryoAction("TR",3), got reward: 20
+Saw observation: EmbryoObservation(3,[0,2,1],6)
+Total reward: 18.0
+Starting state: EmbryoState(3,2,[0,1,1],[1,0,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],3)
+Time step 3
+Taking action: EmbryoAction("TR",2), got reward: 40
+Saw observation: EmbryoObservation(3,[1,1,1],6)
+Total reward: 38.0
+Starting state: EmbryoState(3,2,[0,0,2],[0,1,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,1,2],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,2,1],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],4)
+Time step 4
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,0,1],5)
+Time step 5
+Taking action: EmbryoAction("TR",2), got reward: 40
+Saw observation: EmbryoObservation(3,[2,0,1],6)
+Total reward: 36.0
+Starting state: EmbryoState(3,2,[0,0,2],[0,0,1],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,1,2],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],4)
+Time step 4
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[2,0,1],5)
+Time step 5
+Taking action: EmbryoAction("TR",2), got reward: 40
+Saw observation: EmbryoObservation(3,[2,0,1],6)
+Total reward: 36.0
+Starting state: EmbryoState(3,2,[0,1,1],[0,0,1],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,2,1],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,2,0],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,2,0],4)
+Time step 4
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,2,0],5)
+Time step 5
+Taking action: EmbryoAction("TR",3), got reward: 20
+Saw observation: EmbryoObservation(3,[1,2,0],6)
+Total reward: 16.0
+Starting state: EmbryoState(3,2,[0,0,2],[0,1,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,1,2],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],4)
+Time step 4
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,1,1],5)
+Time step 5
+Taking action: EmbryoAction("TR",1), got reward: 40
+Saw observation: EmbryoObservation(3,[1,1,1],6)
+Total reward: 36.0
+Starting state: EmbryoState(3,2,[0,1,1],[0,1,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,2,1],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,2,1],3)
+Time step 3
+Taking action: EmbryoAction("TR",3), got reward: 20
+Saw observation: EmbryoObservation(3,[0,2,1],6)
+Total reward: 18.0
+Starting state: EmbryoState(3,2,[0,0,2],[1,0,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,0,2],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,0,2],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,0,2],4)
+Time step 4
+Taking action: EmbryoAction("TR",2), got reward: 20
+Saw observation: EmbryoObservation(3,[1,0,2],6)
+Total reward: 17.0
+NumViable: 3
+Starting state: EmbryoState(3,3,[0,1,2],[0,0,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,1,2],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,1,2],3)
+Time step 3
+Taking action: EmbryoAction("TR",2), got reward: 20
+Saw observation: EmbryoObservation(3,[0,1,2],6)
+Total reward: 18.0
+Starting state: EmbryoState(3,3,[0,1,2],[0,0,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,1,2],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,1,2],3)
+Time step 3
+Taking action: EmbryoAction("TR",2), got reward: 20
+Saw observation: EmbryoObservation(3,[0,1,2],6)
+Total reward: 18.0
+Starting state: EmbryoState(3,3,[0,1,2],[0,0,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,1,2],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,0,2],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,0,2],4)
+Time step 4
+Taking action: EmbryoAction("TR",2), got reward: 20
+Saw observation: EmbryoObservation(3,[1,0,2],6)
+Total reward: 17.0
+Starting state: EmbryoState(3,3,[0,1,2],[0,0,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,2,1],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,2,1],3)
+Time step 3
+Taking action: EmbryoAction("TR",3), got reward: 0
+Saw observation: EmbryoObservation(3,[0,2,1],6)
+Total reward: -2.0
+Starting state: EmbryoState(3,3,[0,0,3],[0,0,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,0,3],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,0,3],3)
+Time step 3
+Taking action: EmbryoAction("TR",1), got reward: 40
+Saw observation: EmbryoObservation(3,[0,0,3],6)
+Total reward: 38.0
+Starting state: EmbryoState(3,3,[0,0,3],[0,0,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,2,1],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,2,1],3)
+Time step 3
+Taking action: EmbryoAction("TR",3), got reward: 0
+Saw observation: EmbryoObservation(3,[0,2,1],6)
+Total reward: -2.0
+Starting state: EmbryoState(3,3,[0,0,3],[0,0,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,0,3],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,0,3],3)
+Time step 3
+Taking action: EmbryoAction("TR",1), got reward: -40
+Saw observation: EmbryoObservation(3,[0,0,3],6)
+Total reward: -42.0
+Starting state: EmbryoState(3,3,[0,1,2],[0,0,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,0,2],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,0,2],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,0,2],4)
+Time step 4
+Taking action: EmbryoAction("TR",2), got reward: 20
+Saw observation: EmbryoObservation(3,[1,0,2],6)
+Total reward: 17.0
+Starting state: EmbryoState(3,3,[1,0,2],[0,0,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,0,2],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,0,2],3)
+Time step 3
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[1,0,2],4)
+Time step 4
+Taking action: EmbryoAction("TR",2), got reward: 20
+Saw observation: EmbryoObservation(3,[1,0,2],6)
+Total reward: 17.0
+Starting state: EmbryoState(3,3,[0,0,3],[0,0,0],1)
+Time step 1
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,1,2],2)
+Time step 2
+Taking action: EmbryoAction("CC",0), got reward: -1
+Saw observation: EmbryoObservation(3,[0,1,2],3)
+Time step 3
+Taking action: EmbryoAction("TR",2), got reward: -40
+Saw observation: EmbryoObservation(3,[0,1,2],6)
+Total reward: -42.0

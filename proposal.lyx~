@@ -1,0 +1,316 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage{fancyheadings} \pagestyle{fancy} \lhead{Livia Zarnescu} \chead{CS 238 Final Project Proposal} \rhead{October 23, 2015} %Width of line below running headers \setlength{\headrulewidth}{1pt}
+\usepackage[numbered,framed]{mcode}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section*
+Life begins as a POMDP: improving decision making in the IVF clinic 
+\end_layout
+
+\begin_layout Subsection*
+Objective
+\end_layout
+
+\begin_layout Standard
+The procedure of 
+\shape italic
+in vitro
+\shape default
+ fertilization (IVF) relies heavily on subjective treatment decisions which
+ are made based on limited information.
+ For this project, I propose to model early embryo development as a partially
+ observable Markov decision process (POMDP) and determine an optimal sequence
+ of actions for a given set of embryos.
+\end_layout
+
+\begin_layout Subsection*
+Problem Description
+\end_layout
+
+\begin_layout Standard
+In the current clinical practice of IVF, a patient starts a treatment cycle
+ with hormones which stimulate several egg-containing follicles to grow.
+ Once the eggs are determined to be sufficiently mature, they are collected
+ and fertilized via regular IVF or intra-cytoplasmic sperm injection (ICSI),
+ depending on sperm quality.
+ The resulting embryos are then incubated overnight and a fertilization
+ check is performed the following morning to assess whether fertilization
+ actually occured.
+ Typically, the majority of eggs collected are able to fertilize successfully
+ so the clinicians are then tasked with choosing which and how many embryos
+ to transfer back to the patient in hopes of achieving a successful pregnancy.
+ The selection of embryos for transfer is a difficult problem because the
+ desired outcome is not just for the patient to become pregnant, but also
+ to have a 
+\shape italic
+singleton
+\shape default
+ pregnancy.
+ Multiple gestation pregnancies are associated with significantly higher
+ medical costs, risks of complications, and neonatal mortality, so transferring
+ too many viable embryos will also lead to a suboptimal outcome.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename IVF.pdf
+	lyxscale 50
+	width 100text%
+	clip
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Typical clinical workflow in IVF.
+ After fertilization, clinicians must decide for how long to culture embryos,
+ and then which one(s) to transfer back to the patient to maximize her chances
+ of a singleton pregnancy.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Selecting embryos for transfer requires an assessment of embryo quality
+ to predict viability.
+ The current gold standard to determine quality is to culture embryos for
+ several days after fertilization (typically to the day 3 cleavage stage,
+ or to the day 5-6 blastocyst stage), and simply designate those which do
+ not arrest and which survive as viable.
+ Although this method can eliminate many embryos which are not viable from
+ consideration for transfer, is also causes significant stress to all embryos
+ as extended time in culture can negatively affect patterns of gene expression
+ and epigenetic reprogramming.
+ Therefore, it is important to balance the information gathered from extra
+ time in culture with the stress caused by the culture process itself.
+\end_layout
+
+\begin_layout Standard
+In addition to viability determination by attrition, clinicians can also
+ gather information about viability based on morphological features such
+ as cell number, symmetry, and degree of fragmentation.
+ These features are highly subjective and only moderately correlated with
+ viability, but are noninvasive and easy to perform.
+ Recent advances in research have also resulted in new, more accurate assessment
+s of viability such as preimplantation genetic diagnosis and time lapse
+ imaging.
+ These tests can improve prediction over a morphological assessment alone,
+ but have varying degrees of invasiveness and cost significantly more.
+\end_layout
+
+\begin_layout Standard
+Therefore, between the time of fertilization and the time of transfer to
+ the patient, clinicians must make a series of decisions regarding which
+ assessments of viability to conduct, how long to culture, and which embryos
+ to transfer in order to achieve a singleton pregnancy.
+ It is possible that by modeling this process as a POMDP, we can come up
+ with an optimal decision-making policy to maximize success rates.
+\end_layout
+
+\begin_layout Subsection*
+Approach
+\end_layout
+
+\begin_layout Standard
+The process of embryo development from the time of fertilization check to
+ the time of transfer will be modeled as a POMDP, where:
+\end_layout
+
+\begin_layout Enumerate
+If a patient starts with 
+\begin_inset Formula $n$
+\end_inset
+
+ fertilized embryos, there will be ground truth viability information for
+ all embryos represented as an 
+\begin_inset Formula $nx1$
+\end_inset
+
+ vector.
+ 
+\end_layout
+
+\begin_layout Enumerate
+The
+\series bold
+ state space
+\series default
+ describes each embryo's internal state with two parameters per embryo.
+ The first of these two refers to the developmental status of the embryo,
+ which is either arrested or still developing.
+ The second parameter refers to the embryo's probability of arresting each
+ day, which is related to its ultimate viability but also to its time in
+ culture and also other random factors.
+ 
+\end_layout
+
+\begin_layout Enumerate
+The 
+\series bold
+action space
+\series default
+ consists of decisions the clinician may make each day.
+ These consist of transferring one or more embryos, ordering additional
+ viability tests, or simply doing nothing and waiting another day in culture.
+\end_layout
+
+\begin_layout Enumerate
+The 
+\series bold
+observation space
+\series default
+ consists of embryo morphological data, and it may also contain the results
+ of optional viability tests ordered by the clinician.
+ The 
+\series bold
+observation model
+\series default
+ will account for the fact that clinician assessments of morphology and
+ arrest are highly subjective and user-dependent.
+\end_layout
+
+\begin_layout Enumerate
+The
+\series bold
+ reward model 
+\series default
+will give positive rewards for transferring viable embryos, with a significant
+ bonus for transferring only one viable embryo.
+ It will give negative rewards for every additional day spent in culture,
+ each additional viability test ordered, with a large negative penalty for
+ transferring no viable embryos.
+\end_layout
+
+\begin_layout Enumerate
+The
+\series bold
+ transition model
+\series default
+ will advance the state of each embryo one time step based on its developmental
+ status and its probability of arrest.
+\end_layout
+
+\begin_layout Standard
+To test out this approach, I have a data set from research which contains
+ data on morphology, developmental stage, time lapse parameters, and chromosomal
+ status for 50-60 embryos.
+ Since solving a POMDP may require a large amount of data, I am also considering
+ simulating a much larger data set based on published statistics on human
+ embryo viability and morphology.
+\end_layout
+
+\begin_layout Subsection*
+Outcome Measures
+\end_layout
+
+\begin_layout Standard
+The success of this approach will be measured by (a) the percentage of cycles
+ which result in the transfer of at least one viable embryo, and (b) the
+ percentage of cycles which result in the transfer of exactly one viable
+ embryo.
+ In IVF today, over 35% of pregnancies represent twins or higher order multiples
+, mainly due to the practice of transferring several embryos at once.
+ For this reason, a huge percentage of IVF babies are born prematurely,
+ have low birth weight, and are at increased risks of developmental delays.
+ If this model is able to increase the rate of singleton pregnancies beyond
+ 65%, it could eventually enable clinicians to improve their pregnancy rates,
+ reduce complications, and even reduce the overall cost of IVF for their
+ patients.
+ 
+\end_layout
+
+\end_body
+\end_document
